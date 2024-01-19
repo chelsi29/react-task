@@ -24,7 +24,7 @@ const rows = [
 const product = () => {
   return (
 
-    <div style={{ height: 400, width: '70%', marginTop: 'normal',marginLeft: '300px'}}>
+    <div style={{ height: 400, width: '70%', marginTop: '100px',marginLeft: '300px'}}>
       <DataGrid
         rows={rows}
         columns={columns}
