@@ -1,4 +1,7 @@
-import React from 'react'
+import React from 'react';
+import SideNav from '../dashboard/sideNav';
+import Box from '@mui/material/Box';
+
 
 const apps = () => {
   return (

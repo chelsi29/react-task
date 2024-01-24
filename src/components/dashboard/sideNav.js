@@ -62,7 +62,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-function SideNavLeft() {
+function SideNav() {
   const theme = useTheme();
 
   const [open, setOpen] = React.useState(true);
@@ -114,7 +114,7 @@ function SideNavLeft() {
         </DrawerHeader>
         <Divider />
         <List>
-        <ListItem disablePadding onClick={()=>navigate('/')} >
+        <ListItem disablePadding onClick={()=>navigate('/apps')} >
               <ListItemButton>
                 <ListItemIcon>
                    <AppsIcon />
@@ -262,4 +262,4 @@ function SideNavLeft() {
   );
 }
 
-export default SideNavLeft;
+export default SideNav;
