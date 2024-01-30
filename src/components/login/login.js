@@ -9,7 +9,7 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
-import { Formik } from "formik"; 
+import { Formik } from "formik";
 import { loginValidationSchema } from "../schema/loginvalidation";
 import { makeStyles } from "@mui/styles";
 
@@ -26,29 +26,23 @@ const Login = () => {
 
   const handleLogin = (values) => {
     const { email, password } = values;
-
-    // console.log('email',email);
-    // console.log('pwd',password);
-
-    // localStorage.setItem("email", "abc@gmail.com");
-    // localStorage.setItem("password", " 1234");
     const setLocalStorage = async () => {
-    await Promise.all([
-      localStorage.setItem("email", "abc@gmail.com"),
-      localStorage.setItem("password", "1234"),
-    ]);
-  };
-   
-  setLocalStorage().then(() => {
-  var Email = localStorage.getItem("email") || "abc@gmail.com";
-  var userPassword = localStorage.getItem("password") || "1234";
-    if (Email === email && userPassword === password) {
-      navigate("/sideNav");
-    } else {
-      navigate("/");
-      console.log("Incorrect credentials");
-    }
-  })
+      await Promise.all([
+        localStorage.setItem("email", "abc@gmail.com"),
+        localStorage.setItem("password", "1234"),
+      ]);
+    };
+
+    setLocalStorage().then(() => {
+      var Email = localStorage.getItem("email") || "abc@gmail.com";
+      var userPassword = localStorage.getItem("password") || "1234";
+      if (Email === email && userPassword === password) {
+        navigate("/sideNav");
+      } else {
+        navigate("/");
+        console.log("Incorrect credentials");
+      }
+    });
   };
 
   const classes = useStyles();
@@ -126,9 +120,7 @@ const Login = () => {
                   value={values.password}
                   onChange={handleChange}
                   helperText={
-                    <span className={classes.errorText}>
-                      {errors.password}
-                    </span>
+                    <span className={classes.errorText}>{errors.password}</span>
                   }
                 />
 
