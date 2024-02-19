@@ -1,75 +1,47 @@
-import React from "react";
-import { styled, useTheme } from "@mui/material/styles";
+import React, { useState } from "react";
+import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import CssBaseline from "@mui/material/CssBaseline";
 import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import Container from "@mui/material/Container";
+import Button from "@mui/material/Button";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import AppsIcon from "@mui/icons-material/Apps";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
-import { useNavigate } from "react-router-dom";
 import AnalyticsIcon from "@mui/icons-material/Analytics";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import DescriptionIcon from "@mui/icons-material/Description";
+import { useNavigate } from "react-router-dom";
+import WebIcon from "@mui/icons-material/Web";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import CategoryIcon from "@mui/icons-material/Category";
 import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
-import WebIcon from "@mui/icons-material/Web";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import TourIcon from "@mui/icons-material/Tour";
 import FilePresentIcon from "@mui/icons-material/FilePresent";
 import ChatIcon from "@mui/icons-material/Chat";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import ViewKanbanIcon from "@mui/icons-material/ViewKanban";
+import Divider from "@mui/material/Divider";
 
 const drawerWidth = 240;
 
-const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
-  ({ theme, open }) => ({
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: `-${drawerWidth}px`,
-    ...(open && {
-      transition: theme.transitions.create("margin", {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
-    }),
-  })
-);
+const pages = ["Products", "User", "Pricing", "Blog"];
 
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  padding: theme.spacing(0, 1),
-  ...theme.mixins.toolbar,
-  justifyContent: "flex-end",
-}));
-
-function SideNav() {
-  const theme = useTheme();
-
-  const [open, setOpen] = React.useState(true);
+function HeaderAppBar() {
+  const [open, setOpen] = useState(true);
   const navigate = useNavigate();
 
   const handleDrawerOpen = () => {
-
     setOpen(true);
   };
 
@@ -77,52 +49,81 @@ function SideNav() {
     setOpen(false);
   };
 
+  const handleLogout = () => {
+
+    console.log("Logging out...");
+
+    localStorage.removeItem("email","password");
+
+    console.log("User data removed from localStorage:", localStorage.getItem("email"));
+
+    navigate("/login");
+  };
+
   return (
-    <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-
-      <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={handleDrawerOpen}
-          edge="start"
-          sx={{ mr: 2, ...(open && { display: "none" }) }}
-        >
-          <MenuIcon />
-        </IconButton>
-      </Toolbar>
-
+    <>
+      <AppBar position="static">
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <Box sx={{ flexGrow: 1 }}>
+              <IconButton
+                size="large"
+                aria-label="open drawer"
+                onClick={handleDrawerOpen}
+                edge="start"
+                color="inherit"
+                sx={{ mr: 2 }}
+              >
+                <MenuIcon />
+              </IconButton>
+            </Box>
+            <Box sx={{ flexGrow: 1 }}>
+              {pages.map((page) => (
+                <Button
+                  key={page}
+                  sx={{ color: "white", mx: 1 }}
+                  onClick={() => navigate(`/${page.toLowerCase()}`)}
+                >
+                  {page}
+                </Button>
+              ))}
+            </Box>
+            <Button color="inherit" onClick={handleLogout}>
+              Logout
+            </Button>
+          </Toolbar>
+        </Container>
+      </AppBar>
       <Drawer
         sx={{
           width: drawerWidth,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
             width: drawerWidth,
-            boxSizing: "border-box",
           },
         }}
         variant="persistent"
         anchor="left"
         open={open}
       >
-        <DrawerHeader>
+        <Toolbar>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "ltr" ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
+            <ChevronLeftIcon />
           </IconButton>
-        </DrawerHeader>
-        <Divider />
+        </Toolbar>
         <List>
-          <ListItem disablePadding onClick={() => navigate("/apps")}>
+          <ListItem
+            disablePadding
+            onClick={() => {
+              navigate("/apps");
+              handleDrawerClose();
+            }}
+          >
             <ListItemButton>
               <ListItemIcon>
                 <AppsIcon />
               </ListItemIcon>
-              <ListItemText primary="App" />
+              <ListItemText primary="Apps" />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
@@ -247,6 +248,7 @@ function SideNav() {
             <ListItemText primary="Chat" />
           </ListItemButton>
         </ListItem>
+ 
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemIcon>
@@ -256,11 +258,15 @@ function SideNav() {
           </ListItemButton>
         </ListItem>
       </Drawer>
-      <Main open={open}>
+      {/* <Main open={open}>
         <DrawerHeader />
-      </Main>
-    </Box>
+      </Main> */}
+    </>
   );
 }
 
-export default SideNav;
+export default HeaderAppBar;
+
+
+
+

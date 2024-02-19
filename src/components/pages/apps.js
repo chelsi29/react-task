@@ -1,15 +1,12 @@
-import React from 'react';
-import SideNav from '../dashboard/sideNav';
-import Box from '@mui/material/Box';
-
+import React from 'react'
 
 const apps = () => {
   return (
     <div>
-    <h1>apps</h1>
-   
+      <h1 className='justify-center'>App</h1>
     </div>
   )
 }
 
 export default apps
+

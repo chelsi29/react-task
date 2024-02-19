@@ -25,10 +25,6 @@ const DataTable = ({
   onUpdate,
   onAdd,
   onInputChange,
-  filter,
-  sortBy,
-  sortOrder,
-  onSortChange,
 }) => {
   const [openDialog, setOpenDialog] = useState(false);
   const [isEditing, setIsEditing] = useState(false);

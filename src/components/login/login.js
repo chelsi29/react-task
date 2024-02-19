@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -20,8 +20,6 @@ const useStyles = makeStyles({
 });
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   var navigate = useNavigate();
 
   const handleLogin = (values) => {
@@ -153,6 +151,9 @@ const Login = () => {
 };
 
 export default Login;
+
+
+
 
 // import React, { useState } from "react";
 // import Avatar from "@mui/material/Avatar";
